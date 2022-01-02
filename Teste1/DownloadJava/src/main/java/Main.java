@@ -1,31 +1,29 @@
+import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URL;
 import java.io.InputStream;
+import java.net.URL;
 
-public class Main {
+public class Main{
 
-    public static void main(String[] args) throws FileNotFoundException, IOException{
+    public static void main(String[] args) throws IOException {
 
-        String file = "Downloads";
-        String nomeArquivo = "padrao_tiss_componente_organizacional_201902.pdf";
-        URL url = new URL("https://www.gov.br/ans/pt-br/assuntos/prestadores/padrao-para-troca-de-informacao-de-saude-suplementar-2013-tiss");
-        //Cria streams de leitura e faz a conexão
+        URL url = new URL("https://www.gov.br/ans/pt-br/arquivos/assuntos/prestadores/padrao-para-troca-de-informacao-de-saude-suplementar-tiss/padrao-tiss/padrao-tiss_componente-organizacional_202111.pdf");
+        File file = new File("C:\\Users\\DELL\\Downloads\\arquivo-baixado.pdf");
+
         InputStream is = url.openStream();
-        // leitura
-        FileOutputStream fos = new FileOutputStream(file + "/" + nomeArquivo);
-        //Lê e grava byte a byte
-        int contByte = 0;
-        byte buffer[] = new byte[8192];
-        long tempo = System.currentTimeMillis();
-        while((contByte = is.read()) >= 0 ){
-            fos.write(buffer, 0, contByte);
-        }
-        System.out.println("Download finalizado em " + tempo + " ms");
-        //Encerra
-        is.close();
-        fos.close();
+        FileOutputStream fos = new FileOutputStream(file);
 
+        int bytes = 0;
+
+        while ((bytes = is.read()) != -1) {
+            fos.write(bytes);
+        }
+
+        is.close();
+
+        fos.close();
     }
+
+
 }
